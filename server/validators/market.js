@@ -6,7 +6,7 @@ const addProductValidation = (body) => {
         name: Joi.string().required().min(6).max(255),
         category: Joi.string().required().valid('keyboards', 'monitors', 'servers', 'components'),
         price: Joi.number().required().min(1000).max(1000000),
-        imageUrl: Joi.string().required().max(255)
+        imageUrl: Joi.string().uri().required().max(255)
     })
     return schema.validate(body);
 }
@@ -16,7 +16,7 @@ const editProductValidation = (body) => {
         name: Joi.string().required().min(6).max(255),
         category: Joi.string().required().valid('keyboards', 'monitors', 'servers', 'components'),
         price: Joi.number().required().min(1000).max(1000000),
-        imageUrl: Joi.string().required().max(255)
+        imageUrl: Joi.string().uri().required().max(255)
     })
     return schema.validate(body);
 }

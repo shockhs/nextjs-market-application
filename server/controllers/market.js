@@ -32,7 +32,7 @@ exports.getCategoryProducts = (req, res) => {
     const { error } = categoryProductValidation({ category: req.params.category });
     if (error) return res.status(400).send({ error: error.details[0].message });
     const category = req.params.category
-    
+
     mysql.db.query(
         `SELECT * FROM products WHERE category = '${category}'`,
         (error, result) => {
@@ -47,14 +47,13 @@ exports.getCategoryProducts = (req, res) => {
 
 exports.addProduct = (req, res) => {
     const { error } = addProductValidation(req.body);
-    if (error) return res.status(400).send({ error: error.details[0].message });
+    if (error) return res.send({ message: error.details[0].message, status: 400 });
 
     const { name, category, price, imageUrl } = req.body
-
     mysql.db.query(
         'INSERT INTO products SET ?',
         {
-            id_owner: 2,
+            id_owner: req.currentUser.id,
             name,
             category,
             price,
@@ -65,9 +64,9 @@ exports.addProduct = (req, res) => {
         (error, result) => {
             if (error) {
                 console.log(error)
-                return res.status(400).send({ message: "Something is wrong. Try again later" })
+                return res.send({ message: "Something is wrong. Try again later", status: 400 })
             }
-            else return res.status(201).send({ message: 'Product added to db' })
+            else return res.status(201).send({ message: 'Product added to db', status: 201 })
         })
 }
 
@@ -77,7 +76,8 @@ exports.editProduct = (req, res) => {
 
     const { name, category, price, imageUrl } = req.body
     const id = req.params.id
-    const id_owner = 2
+    // NEED CHECK OWNER FIRST
+    const id_owner = req.currentUser.id
     const edit_date = new Date(Date.now()).toISOString().slice(0, 19).replace('T', ' ');
     mysql.db.query(
         `UPDATE products 
@@ -95,7 +95,8 @@ exports.editProduct = (req, res) => {
 
 exports.deleteProduct = (req, res) => {
     const id = req.params.id
-    const id_owner = 2
+    // NEED CHECK OWNER FIRST
+    const id_owner = req.currentUser.id
     mysql.db.query(
         `DELETE FROM products WHERE id = ${id} AND id_owner = ${id_owner}`,
         (error, result) => {

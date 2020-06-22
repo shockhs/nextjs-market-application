@@ -17,6 +17,8 @@
 .image img {
   width: 80%;
   height: 90%;
+  max-width: 80%;
+  max-height: 90%;
 }
 
 .description {
@@ -46,7 +48,7 @@
   font-size: 1.8rem;
 }
 
-.categoryLink  {
+.categoryLink {
   text-decoration: none;
 }
 
@@ -64,10 +66,10 @@
   border-radius: 5px;
   padding: 8px 0;
   font-weight: bold;
-  transition: .2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 .buttons button:hover {
   background-color: #000;
-  color:#fff 
+  color: #fff;
 }

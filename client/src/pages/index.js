@@ -24,9 +24,7 @@ const Home = ({ products, isAuthenticated, state }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="container">
           <Products products={products} />
-        </div>
       </main>
 
       <footer>

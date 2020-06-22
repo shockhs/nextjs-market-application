@@ -1,0 +1,71 @@
+.page {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  margin-top: 10vh;
+  height: 80vh;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  display: grid;
+  grid-template-rows: 20% 60% 20%;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.inputForm {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+.successStatus {
+    display: flex;
+    justify-content: center;
+}
+
+.successStatus span {
+    text-transform: uppercase;
+    color:#1ce437;
+    font-weight: 700;
+}
+.inputForm label {
+  font-weight: bold;
+  font-size: 18px;
+}
+.inputForm input {
+  font-size: 18px;
+  font-weight: 500;
+  padding: 5px 0 5px 5px;
+}
+
+.product {
+  display: flex;
+  justify-content: center;
+  margin-top: 10vh;
+}
+
+.button {
+    padding: 15px 0;
+    width: 25%;
+    border: none;
+    outline: none;
+    background-color: #3d5af1;
+    color:#fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 15px;
+}
+
+.buttonPos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
