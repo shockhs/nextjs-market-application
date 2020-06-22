@@ -1,0 +1,9 @@
+.products {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 400px 400px 400px;
+      grid-template-columns: 400px 400px 400px;
+  gap: 20px;
+  list-style: none;
+}
+/*# sourceMappingURL=Products.module.css.map */
