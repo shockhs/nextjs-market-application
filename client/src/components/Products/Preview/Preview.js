@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from './Preview.module.css';
 
-export default function ({ product, isProductPreview }) {
+export default function ({ product }) {
     const { name, price, add_date, edit_date, expires_date, id_owner, imageUrl,/*name_owner*/ } = product
     let arr, category;
     if (product.category.length > 0) {

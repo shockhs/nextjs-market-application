@@ -32,8 +32,19 @@ exports.register = (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    res.clearCookie('jwt')
-    res.status(200).send({ message: 'Logout is complete' })
+    const id = req.currentUser.id
+    const visitDate = new Date(Date.now()).toISOString().slice(0, 19).replace('T', ' ');
+    mysql.db.query(
+        `UPDATE users 
+                            SET visit_date = '${visitDate}'
+                            WHERE id = ${id}`,
+        (error, result) => {
+            if (error) {
+                console.log(error);
+                return res.send({ message: "Something is wrong. Try again later [UPD]", status: 400 })
+            }
+        })
+    res.status(200).send({ message: 'Logout is complete', status: 200 })
 }
 
 exports.login = async (req, res) => {
@@ -50,19 +61,36 @@ exports.login = async (req, res) => {
                 if (results.length < 1 || !(await bcrypt.compare(password, results[0].password)))
                     return res.status(401).send({ message: 'Email or Password is incorrect', status: 401 })
                 else {
-                    const user = { id: results[0].id, name: results[0].name, email: results[0].email }
-                    const token = jwt.sign(user, process.env.JWT_SECRET, {
-                        expiresIn: process.env.JWT_EXPIRES_IN
-                    })
-
-                    const cookieOptions = {
-                        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
-                        sameSite: 'none',
-                        secure: true
+                    const user = {
+                        id: results[0].id,
+                        name: results[0].name,
+                        email: results[0].email,
+                        regDate: results[0].registration_date,
+                        balance: null
                     }
 
-                    res.cookie('jwt', token, cookieOptions)
-                    res.status(200).send({ message: 'Login is complete', token, status: 200 })
+                    mysql.db.query(
+                        `SELECT balance FROM accounts WHERE id_owner = ${results[0].id}`,
+                        async (error, results) => {
+                            if (error)
+                                console.log(error);
+                            if (results.length > 0)
+                                user.balance = results[0].balance
+                                
+                            const token = jwt.sign(user, process.env.JWT_SECRET, {
+                                expiresIn: process.env.JWT_EXPIRES_IN
+                            })
+                            const visitDate = new Date(Date.now()).toISOString().slice(0, 19).replace('T', ' ');
+                            mysql.db.query(
+                                `UPDATE users SET visit_date = '${visitDate}' WHERE id = ${user.id}`,
+                                (error, result) => {
+                                    if (error) {
+                                        console.log(error);
+                                        return res.send({ message: "Something is wrong. Try again later [UPD]", status: 400 })
+                                    }
+                                })
+                            return res.status(200).send({ message: 'Login is complete', token, status: 200, user })
+                        })
                 }
             }
         )

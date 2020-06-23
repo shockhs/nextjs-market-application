@@ -1,22 +1,10 @@
-import dynamic from "next/dynamic";
 import Head from 'next/head';
 import React from 'react';
 import { connect } from "react-redux";
 import Products from '../components/Products/Products';
 
-const LoginPage = dynamic(() => import("./login"));
-// more imports here
 
-
-const Home = ({ products, isAuthenticated, state }) => {
-  // const [loggedIn, setLoggedIn] = useState('')
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const existingTokens = localStorage.getItem("jwt")
-  //     setLoggedIn(existingTokens)
-  //   }
-  //   fetchData();
-  // }, [])
+const Home = ({ products }) => {
   return (
     <>
       <Head>
@@ -24,7 +12,7 @@ const Home = ({ products, isAuthenticated, state }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-          <Products products={products} />
+        <Products products={products} />
       </main>
 
       <footer>

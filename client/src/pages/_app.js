@@ -8,7 +8,6 @@ const Header = dynamic(() => import('../components/Header/Header'))
 const Layout = ({ children }) => {
   return <>
     <Header />
-
     <div className="container">
       {children}
     </div>
@@ -24,10 +23,8 @@ const App = ({ Component, pageProps }) => {
         <Component {...pageProps} />
       </PersistGate>
       <style jsx global>{`
-
         html,
         body {
-          width:100vw;
           padding: 0;
           margin: 0;
           font-family: 'Montserrat', sans-serif;
@@ -37,9 +34,13 @@ const App = ({ Component, pageProps }) => {
           margin: 0 auto;
         }
         
-        img,li,ul,ol,span,h1,h2,h3,h4,h5,h6 {
+        img,li,ul,ol,span,h1,h2,h3,h4,h5,h6,main,footer {
           margin:0;
           padding:0;
+        }
+
+        main {
+          width:100%
         }
 
         *,*::before,*::after {
@@ -54,7 +55,7 @@ const App = ({ Component, pageProps }) => {
           text-decoration:none;
           color:#000
         }
-    
+      
         /* montserrat-300 - latin */
         @font-face {
         font-family: 'Montserrat';

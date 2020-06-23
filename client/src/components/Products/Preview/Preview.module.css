@@ -1,7 +1,6 @@
 .product {
   height: 400px;
   width: 400px;
-  border: 1px solid #000;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 70% 30%;
@@ -30,7 +29,7 @@
 }
 
 .description {
-  padding: 5px 5px 0 10px;
+  padding: 5px 0;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 60% 40%;
@@ -45,6 +44,7 @@
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: left;
+  padding-left: 10px;
 }
 
 .name {
@@ -59,7 +59,13 @@
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: right;
-  text-align: center;
+  padding-right: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   font-weight: 500;
   font-size: 1.8rem;
 }

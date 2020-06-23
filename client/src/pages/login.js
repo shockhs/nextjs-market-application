@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { connect } from 'react-redux'
-import { setToken } from '../store/actions/auth'
+import { setUser } from '../store/actions/auth'
 import formStyles from '../styles/form.js'
 
-const Login = ({ setToken }) => {
+const Login = ({ setUser }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null)
@@ -26,8 +26,7 @@ const Login = ({ setToken }) => {
                 if (res.status === 400 || res.status === 401) {
                     setError(res.message)
                 } else if (res.status === 200) {
-                    localStorage.setItem('jwt', res.token);
-                    setToken(res.token)
+                    setUser(res.token, res.user)
                     router.push('/')
                 }
             })
@@ -53,4 +52,4 @@ const Login = ({ setToken }) => {
     )
 }
 
-export default connect(null, { setToken })(Login)
+export default connect(null, { setUser })(Login)

@@ -1,15 +1,24 @@
-import { REMOVE_TOKEN, SET_TOKEN } from '../actions/auth';
+import { REMOVE_TOKEN, SET_BALANCE, SET_USER, UPDATE_BALANCE } from '../actions/auth';
 
 const initialState = {
     authToken: null,
-    isAuthenticated: false
+    isAuthenticated: false,
+    user: null
 }
 
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_TOKEN:
-            return { authToken: action.token, isAuthenticated: true };
+        case SET_USER:
+            return { authToken: action.data.token, isAuthenticated: true, user: action.data.user };
+        case SET_BALANCE: {
+            const data = action.balance
+            return { ...state, user: { ...state.user, balance: parseInt(data) } };
+        }
+        case UPDATE_BALANCE: {
+            const data = action.balance
+            return { ...state, user: { ...state.user, balance: state.user.balance + parseInt(data) } }
+        }
         case 'persist/REHYDRATE': {
             const data = action.payload;
             if (data) {
@@ -20,7 +29,7 @@ const authReducer = (state = initialState, action) => {
             }
         }
         case REMOVE_TOKEN:
-            return { authToken: null, isAuthenticated: false };
+            return { ...initialState };
         default:
             return { ...state };
     }
