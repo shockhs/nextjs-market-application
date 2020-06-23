@@ -1,0 +1,16 @@
+.products {
+  border-top: 2px solid #000;
+  margin-top: 20px;
+  list-style: none;
+}
+.table {
+  display: grid;
+  height: 50px;
+  align-items: center;
+  grid-template-columns: 5% 30% 10% 10% 10% 25% 10%;
+  border-bottom: 2px solid #000000;
+  span {
+    display: flex;
+    justify-content: center;
+  }
+}

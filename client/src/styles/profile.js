@@ -15,7 +15,6 @@ header {
   display: grid;
   -ms-grid-columns: 30% 40% 30%;
       grid-template-columns: 30% 40% 30%;
-  border: 2px solid #000000;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

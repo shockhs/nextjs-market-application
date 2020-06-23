@@ -1,0 +1,43 @@
+.name {
+  justify-content: flex-start !important;
+}
+
+.table {
+  display: grid;
+  height: 70px;
+  align-items: center;
+  grid-template-columns: 5% 30% 10% 10% 10% 25% 10%;
+  span {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.actions {
+  font-weight: 500;
+}
+
+.delete {
+  color: rgb(255, 38, 0);
+  margin-left: 5px;
+}
+
+.link:hover,
+.delete:hover {
+  color: #000;
+}
+
+.link {
+  color: #3d5af1;
+  margin-right: 5px;
+}

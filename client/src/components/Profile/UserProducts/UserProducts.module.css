@@ -1,0 +1,27 @@
+.products {
+  border-top: 2px solid #000;
+  margin-top: 20px;
+  list-style: none;
+}
+
+.table {
+  display: -ms-grid;
+  display: grid;
+  height: 50px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-grid-columns: 5% 30% 10% 10% 10% 25% 10%;
+      grid-template-columns: 5% 30% 10% 10% 10% 25% 10%;
+  border-bottom: 2px solid #000000;
+}
+
+.table span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+/*# sourceMappingURL=UserProducts.module.css.map */

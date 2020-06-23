@@ -13,6 +13,19 @@ exports.getAllProducts = (req, res) => {
         })
 }
 
+exports.getProductsById = (req, res) => {
+    const id_owner = req.currentUser.id
+    mysql.db.query(
+        `SELECT * FROM products WHERE id_owner=${id_owner}`,
+        (error, results) => {
+            if (error) {
+                console.log(error)
+                return res.send({ message: "Something is wrong. Try again later", status: 400 })
+            }
+            else return res.status(200).send({ data: results, status: 200 })
+        })
+}
+
 exports.getProduct = (req, res) => {
     const id = req.params.id
 

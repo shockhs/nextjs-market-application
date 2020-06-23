@@ -8,7 +8,7 @@ const Home = ({ products }) => {
   return (
     <>
       <Head>
-        <title>ProductsPage</title>
+        <title>Products Page</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>

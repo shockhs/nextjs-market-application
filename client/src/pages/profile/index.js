@@ -1,9 +1,10 @@
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import Balance from '../../components/Profile/Balance';
+import Balance from '../../components/Profile/Balance/Balance';
+import UserProducts from '../../components/Profile/UserProducts/UserProducts';
 import { setBalance } from '../../store/actions/auth';
 import profileStyles from '../../styles/profile.js';
-
 
 const Profile = ({ user, authToken, setBalance, isAuthenticated }) => {
     if (!isAuthenticated) {
@@ -39,41 +40,45 @@ const Profile = ({ user, authToken, setBalance, isAuthenticated }) => {
         fetchData()
     }, [])
 
-    return <main className="profile">
-        <header>
-            <div className="image">
-                <img src="/noavatar.png" alt="" />
-            </div>
-            <div className="description">
-                <div className="item">
-                    <span className="title">Name:</span>
-                    <span>{name}</span>
+    return <>
+        <Head>
+            <title>Profile Page</title>
+            <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <main className="profile">
+            <header>
+                <div className="image">
+                    <img src="/noavatar.png" alt="" />
                 </div>
-                <div className="item">
-                    <span className="title">Email:</span>
-                    <span>{email}</span>
+                <div className="description">
+                    <div className="item">
+                        <span className="title">Name:</span>
+                        <span>{name}</span>
+                    </div>
+                    <div className="item">
+                        <span className="title">Email:</span>
+                        <span>{email}</span>
+                    </div>
+                    <div className="item">
+                        <span className="title">Registration Date:</span>
+                        <span>{new Date(regDate).toLocaleDateString("en-US", options)}</span>
+                    </div>
+                    <div className="item">
+                        <span className="title">Last visit:</span>
+                        <span>{new Date(Date.now()).toLocaleDateString("en-US", options)}</span>
+                    </div>
                 </div>
-                <div className="item">
-                    <span className="title">Registration Date:</span>
-                    <span>{new Date(regDate).toLocaleDateString("en-US", options)}</span>
-                </div>
-                <div className="item">
-                    <span className="title">Last visit:</span>
-                    <span>{new Date(Date.now()).toLocaleDateString("en-US", options)}</span>
-                </div>
-            </div>
-            <Balance
-                openButton={openButton}
-                setOpenButton={setOpenButton}
-                authToken={authToken} />
-        </header>
-        <div className="products">
-
-        </div>
-        <style jsx>
-            {profileStyles}
-        </style>
-    </main>
+                <Balance
+                    openButton={openButton}
+                    setOpenButton={setOpenButton}
+                    authToken={authToken} />
+            </header>
+            <UserProducts />
+            <style jsx>
+                {profileStyles}
+            </style>
+        </main>
+    </>
 }
 
 

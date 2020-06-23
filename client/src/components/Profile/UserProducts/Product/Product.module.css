@@ -1,0 +1,62 @@
+.name {
+  -webkit-box-pack: start !important;
+      -ms-flex-pack: start !important;
+          justify-content: flex-start !important;
+}
+
+.table {
+  display: -ms-grid;
+  display: grid;
+  height: 70px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-grid-columns: 5% 30% 10% 10% 10% 25% 10%;
+      grid-template-columns: 5% 30% 10% 10% 10% 25% 10%;
+}
+
+.table span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.image img {
+  width: 70px;
+  height: 70px;
+}
+
+.actions {
+  font-weight: 500;
+}
+
+.delete {
+  color: #ff2600;
+  margin-left: 5px;
+}
+
+.link:hover,
+.delete:hover {
+  color: #000;
+}
+
+.link {
+  color: #3d5af1;
+  margin-right: 5px;
+}
+/*# sourceMappingURL=Product.module.css.map */

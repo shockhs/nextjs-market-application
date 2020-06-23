@@ -5,6 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { wrapper } from '../store/store';
 const Header = dynamic(() => import('../components/Header/Header'))
 
+
 const Layout = ({ children }) => {
   return <>
     <Header />
