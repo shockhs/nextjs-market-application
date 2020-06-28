@@ -16,7 +16,7 @@ export default function ({ product }) {
             {new Date(add_date).toLocaleDateString("en-US", options)}
         </span>
         <div className={styles.actions}>
-            <Link href="#">
+            <Link href={`/products/id/${id}`}>
                 <a className={styles.link}>
                     Link
                 </a>

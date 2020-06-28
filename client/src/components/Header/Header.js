@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { removeToken } from '../../store/actions/auth';
 import styles from './Header.module.css';
 
-export default connect((state) => ({ auth: state.auth }), { removeToken })
-    (function Header({ auth, removeToken }) {
+export default connect((state) => ({ auth: state.auth, counter: state.cart.counter }), { removeToken })
+    (function Header({ auth, removeToken, counter }) {
         const router = useRouter()
         const logoutClick = async (event) => {
             event.preventDefault()
@@ -48,21 +48,21 @@ export default connect((state) => ({ auth: state.auth }), { removeToken })
                                     <Link href="/">
                                         <a>
                                             Homepage
-                                </a>
+                                        </a>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="/login">
                                         <a>
                                             Login
-                                </a>
+                                        </a>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="/register">
                                         <a>
                                             Register
-                                </a>
+                                        </a>
                                     </Link>
                                 </li>
                             </ul>
@@ -74,8 +74,12 @@ export default connect((state) => ({ auth: state.auth }), { removeToken })
                         }
                         <div className={styles.cart}>
                             <div className={styles.cartBlock}>
-                                <span className={styles.cartNumber}>0</span>
-                                <img src="/cart.png" alt="User Cart" />
+                                <span className={styles.cartNumber}>{counter}</span>
+                                <Link href="/cart">
+                                    <a>
+                                        <img src="/cart.png" alt="User Cart" />
+                                    </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

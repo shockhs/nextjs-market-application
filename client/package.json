@@ -23,5 +23,8 @@
     "redux-thunk": "^2.3.0",
     "sass": "^1.26.8",
     "universal-cookie": "^4.0.3"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^5.4.0"
   }
 }

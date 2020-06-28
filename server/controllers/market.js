@@ -120,3 +120,108 @@ exports.deleteProduct = (req, res) => {
             else return res.status(200).send({ message: 'Product deleted from db' })
         })
 }
+
+
+exports.buyArrayProducts = (req, res) => {
+    const { stack } = req.body
+    // NEED CHECK OWNER FIRST
+    const id_buyer = req.currentUser.id
+    mysql.db.query(
+        `SELECT balance FROM accounts WHERE id_owner = ${id_buyer}`,
+        async (error, results) => {
+            if (error) {
+                console.log(error);
+                return res.send({ message: "Something is wrong. Try again later[1]", status: 400 })
+            }
+            if (results.length < 1)
+                return res.send({ message: 'Account is not opened', status: 400 })
+            const balance = results[0].balance
+            mysql.db.query(
+                `SELECT * FROM products WHERE id IN ` + `(${stack})`,
+                (error, results) => {
+                    if (error || results.length < 1) {
+                        return res.send({ message: "Something is wrong. Try again later[2]", status: 400 })
+                    }
+                    let summary = 0;
+                    for (let i = 0; i < results.length; i++) {
+                        if (results[i].id_buyer !== null)
+                            return res.send({ message: "Already purchased", status: 400, id: results[i].id })
+                        summary += results[i].price
+                    }
+                    if (!(balance - summary >= 0))
+                        return res.send({ message: 'You don`t have enough money for this operation', status: 400 })
+                    const changeValue = summary
+                    const buy_date = new Date(Date.now()).toISOString().slice(0, 19).replace('T', ' ');
+                    mysql.db.query(
+                        `UPDATE products SET buy_date='${buy_date}', id_buyer=${id_buyer} WHERE id IN ` + `(${stack})`,
+                        (error, results) => {
+                            if (error) {
+                                console.log(error);
+                                return res.send({ message: "Something is wrong. Try again later[3]", status: 400 })
+                            }
+                            mysql.db.query(
+                                `UPDATE accounts SET balance = balance - ${changeValue}, update_date = '${buy_date}' 
+                                WHERE id_owner = ${id_buyer}`,
+                                (error, results) => {
+                                    if (error) {
+                                        console.log(error);
+                                        return res.send({ message: "Something is wrong. Try again later[4]", status: 400 })
+                                    }
+                                    return res.status(200).send({
+                                        balance: -changeValue,
+                                        buy_date,
+                                        message: 'Buy offer succesfully completed',
+                                        status: 200
+                                    })
+                                })
+                        })
+                })
+        })
+}
+
+exports.buyProduct = (req, res) => {
+    const id = req.params.id
+    // NEED CHECK OWNER FIRST
+    const id_buyer = req.currentUser.id
+    mysql.db.query(
+        `SELECT balance FROM accounts WHERE id_owner = ${id_buyer}`,
+        async (error, results) => {
+            if (error) {
+                console.log(error);
+                return res.send({ message: "Something is wrong. Try again later", status: 400 })
+            }
+            if (results.length < 1)
+                return res.send({ message: 'Account is not opened', status: 400 })
+            const balance = results[0].balance
+            mysql.db.query(
+                `SELECT * FROM products WHERE id = '${id}'`,
+                (error, results) => {
+                    if (error || results.length < 1) {
+                        return res.send({ message: "Something is wrong. Try again later", status: 400 })
+                    }
+                    if (results[0].id_buyer !== null)
+                        return res.send({ message: "Already purchased", status: 400 })
+                    if (!(balance - results[0].price >= 0))
+                        return res.send({ message: 'You don`t have enough money for this operation', status: 400 })
+                    const changeValue = results[0].price
+                    const buy_date = new Date(Date.now()).toISOString().slice(0, 19).replace('T', ' ');
+                    mysql.db.query(
+                        `UPDATE products SET buy_date='${buy_date}', id_buyer=${id_buyer} WHERE id = ${id}`,
+                        (error, results) => {
+                            if (error) {
+                                console.log(error);
+                                return res.send({ message: "Something is wrong. Try again later", status: 400 })
+                            }
+                            mysql.db.query(
+                                `UPDATE accounts SET balance = balance - ${changeValue}, update_date = '${buy_date}' WHERE id_owner = ${id_buyer}`,
+                                (error, results) => {
+                                    if (error) {
+                                        console.log(error);
+                                        return res.send({ message: "Something is wrong. Try again later", status: 400 })
+                                    }
+                                    return res.status(200).send({ balance: -changeValue, buy_date, message: 'Buy offer succesfully completed', status: 200 })
+                                })
+                        })
+                })
+        })
+}
