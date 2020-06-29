@@ -7,8 +7,10 @@ import styles from './BuySection.module.css';
 
 
 export default connect(state => ({ authToken: state.auth.authToken }), { updateBalance, removeFromCart, addToCart })
-    (function ({ price, updateBalance, authToken, date, setBuyDate, id, name, removeFromCart, addToCart }) {
+    (function ({ price, updateBalance, authToken, date, id, name, removeFromCart, addToCart }) {
         const [isFetching, setIsFetching] = useState(false)
+        const [buyButtonClicked, setBuyButtonClicked] = useState(false)
+        const [successStatus, setSuccessStatus] = useState(false)
         const [error, setError] = useState('')
         const cartStatus = useStore().getState().cart.stack.hasOwnProperty(`${id}`)
         const [status, setStatus] = useState(cartStatus)
@@ -27,6 +29,7 @@ export default connect(state => ({ authToken: state.auth.authToken }), { updateB
 
         const handleBuyButtonClick = async event => {
             event.preventDefault()
+            setBuyButtonClicked(true)
             setIsFetching(true)
             await fetch(`http://localhost:5000/api/market/buy/id=${id}`, {
                 method: "PUT",
@@ -40,14 +43,14 @@ export default connect(state => ({ authToken: state.auth.authToken }), { updateB
                     if (res.status === 200) {
                         setError('')
                         updateBalance(res.balance)
-                        setBuyDate(res.buy_date)
+                        setSuccessStatus(true)
                     } else {
                         setError(res.message)
                     }
                     setIsFetching(false)
                 })
         }
-        if (date === null) {
+        if (date === null && !successStatus) {
             return <div className={styles.container}>
                 <div className={styles.price}>{price}</div>
                 {!isFetching
@@ -63,5 +66,7 @@ export default connect(state => ({ authToken: state.auth.authToken }), { updateB
                 </div>
             </div>
         }
-        return <h1>{price} {date}</h1>
+        return <div className={styles.blockedBuy}>
+            {buyButtonClicked ? <h3 className={styles.success}>Thank you for purchasing</h3> : <h3>Already purchased</h3>}
+        </div>
     })

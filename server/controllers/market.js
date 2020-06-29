@@ -115,9 +115,9 @@ exports.deleteProduct = (req, res) => {
         (error, result) => {
             if (error) {
                 console.log(error);
-                return res.status(400).send({ message: "Something is wrong. Try again later" })
-            } else if (result.affectedRows < 1) res.status(401).send({ message: 'Product is not deleted. Try again later' })
-            else return res.status(200).send({ message: 'Product deleted from db' })
+                return res.send({ message: "Something is wrong. Try again later", status: 400 })
+            } else if (result.affectedRows < 1) res.send({ message: 'Product is not deleted. Try again later', status: 400 })
+            else return res.status(200).send({ message: 'Product deleted from db', status: 200 })
         })
 }
 

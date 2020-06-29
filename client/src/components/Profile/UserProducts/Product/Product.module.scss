@@ -4,7 +4,7 @@
 
 .table {
   display: grid;
-  height: 70px;
+  height: 80px;
   align-items: center;
   grid-template-columns: 5% 30% 10% 10% 10% 25% 10%;
   span {
@@ -19,7 +19,7 @@
   justify-content: center;
   img {
     width: 70px;
-    height: 70px;
+    height: 65px;
   }
 }
 

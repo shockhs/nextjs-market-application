@@ -3,6 +3,10 @@
   margin-top: 20px;
   list-style: none;
 }
+
+.title {
+  margin-top: 30px;
+}
 .table {
   display: grid;
   height: 50px;
@@ -13,4 +17,12 @@
     display: flex;
     justify-content: center;
   }
+}
+
+.blockers {
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  font-weight: bold;
 }

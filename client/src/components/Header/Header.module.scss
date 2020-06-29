@@ -82,6 +82,8 @@
   text-transform: uppercase;
   outline: none;
   padding: 5px 15px;
+  display: flex;
+  align-items: center;
   color: #fff;
   font-weight: 700;
   background-color: #3d5af1;
@@ -92,13 +94,19 @@
 .profileButton {
   @extend .logoutButton;
   background-color: #fff;
+  justify-content: space-between;
   color: #000;
 }
 
 .currentBalance {
-  padding: 3px 10px;
   font-weight: 700;
-  background-color: #fff;
-  border-radius: 5px;
+  margin-left: 5px;
   color: #000;
+}
+.addLink {
+  font-weight: 700;
+  color:#fff;
+  font-size: 2rem;
+  align-items: center;
+  margin:0 5px;
 }

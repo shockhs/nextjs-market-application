@@ -67,8 +67,15 @@ export default connect((state) => ({ auth: state.auth, counter: state.cart.count
                                 </li>
                             </ul>
                             : <div className={styles.authenticated}>
-                                {auth.user.balance !== null ? <span className={styles.currentBalance}>{auth.user.balance}</span> : null}
-                                <button onClick={profileClick} className={[styles.profileButton]}>Profile</button>
+                                <Link href="/products/add">
+                                    <a className={styles.addLink}>
+                                        +
+                                    </a>
+                                </Link>
+                                <button onClick={profileClick} className={[styles.profileButton]}>Profile /
+                                
+                                {auth.user.balance !== null ? <span className={styles.currentBalance}> {auth.user.balance}</span> : null}
+                                </button>
                                 <button onClick={logoutClick} className={styles.logoutButton}>Logout</button>
                             </div>
                         }

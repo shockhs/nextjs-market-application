@@ -1,11 +1,9 @@
 import Link from 'next/link';
-import { useState } from 'react';
 import BuySection from '../../../components/Products/BuySection/BuySection';
 
 export default function Category({ product }) {
 
     let { name, imageUrl, category, add_date, edit_date, price, buy_date, id } = product
-    const [buyDate, setBuyDate] = useState(buy_date)
 
     const arr = category.split('')
     const catName = arr[0].toUpperCase() + arr.slice(1, arr.length).join('')
@@ -34,7 +32,7 @@ export default function Category({ product }) {
                 <span className="span">
                     <span className="title">Date updated:</span> {new Date(edit_date).toLocaleDateString("en-US", options)}
                 </span>
-                <BuySection price={price} date={buyDate} id={id} setBuyDate={setBuyDate} name={name} />
+                <BuySection price={price} date={buy_date} id={id} name={name} />
             </div>
             <style JSX scoped>
                 {`

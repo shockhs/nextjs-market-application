@@ -37,10 +37,6 @@ export default connect(state => ({ balance: state.auth.user.balance }), { update
             }
         }
 
-        const handleCloseButtonClick = async (event) => {
-            event.preventDefault()
-
-        }
 
         const openButtonClick = async (event) => {
             event.preventDefault()
@@ -80,13 +76,6 @@ export default connect(state => ({ balance: state.auth.user.balance }), { update
                             onClick={handleAddBalanceButton}
                             type="submit">
                             add to balance
-                                </button>
-                        <button
-                            className={styles.closeButton}
-                            disabled={isFetching}
-                            onClick={handleCloseButtonClick}
-                            type="submit">
-                            close bank
                                 </button>
                         <div className={styles.error}>{error.length > 1 ? error : null}</div>
                     </div>

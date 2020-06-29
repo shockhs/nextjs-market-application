@@ -7,6 +7,7 @@ export default function ({ authToken }) {
     const [name, setName] = useState('')
     const [category, setCategory] = useState('')
     const [price, setPrice] = useState(0)
+    const [stock, setStock] = useState(0)
     const [imageUrl, setImageUrl] = useState('')
     const [error, setError] = useState('')
     const [isFetching, setIsFetching] = useState(false)
@@ -18,7 +19,8 @@ export default function ({ authToken }) {
         setName('')
         setCategory('')
         setImageUrl('')
-        setPrice('')
+        setPrice(0)
+        setStock(0)
     }, [])
 
     const handleSubmit = async (e) => {
@@ -31,7 +33,7 @@ export default function ({ authToken }) {
                 "Content-Type": "application/json",
                 "authorization": authToken
             },
-            body: JSON.stringify({ name, category, price, imageUrl })
+            body: JSON.stringify({ name, category, price, imageUrl, stock })
         })
             .then(res => res.json())
             .then(res => {
@@ -65,6 +67,10 @@ export default function ({ authToken }) {
                 <div className={styles.inputForm}>
                     <label htmlFor="price">Price: </label>
                     <input disabled={isFetching} type="number" value={price} name="price" onChange={(event) => setPrice(event.target.value)} />
+                </div>
+                <div className={styles.inputForm}>
+                    <label htmlFor="stock">Stock: </label>
+                    <input disabled={isFetching} type="number" value={stock} name="stock" onChange={(event) => setStock(event.target.value)} />
                 </div>
                 <div className={styles.inputForm}>
                     <label htmlFor="imageUrl">Image URL: </label>
